@@ -1,4 +1,5 @@
 <h1> Лабораторная работа. Базовая настройка коммутатора </h1> 
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab00/topology.png/>
 
 <h2> Задачи </h2>
 
