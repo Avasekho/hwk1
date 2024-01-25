@@ -77,13 +77,50 @@
 
 <p> Добавлены настройки: </p>
 
-no ip domain-lookup
-hostname S1
-service password-encryption
-enable secret class
-banner motd #
-Unauthorized access is strictly prohibited. #
+<p> enable >> configure terminal </p>
+<p> > no ip domain-lookup </p>
+<p> > hostname S1 </p>
+<p> > service password-encryption </p>
+<p> > enable secret class </p>
+<p> > banner motd # Unauthorized access is strictly prohibited. # </p>
 
+<p> Настроен адрес VLAN1: </p>
+
+<p> > interface Vlan1 </p>
+<p> > ip address 192.168.1.2 255.255.255.0 </p>
+<p> > line console 0 </p>
+<p> > line vty 0 15 </p>
+<p> > password cisco </p>
+
+<p> Сохраняем изменения: </p>
+
+<p> > copy running-config startup-config </p>
+
+<h2> Настройки сети для ПК </h2>
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab00/pc%20config%20cmd.png>
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab00/pc%20config%20gui.png>
+
+<h2> Проверяем доступность коммутатора </h2>
+
+<p> Пробуем достучаться до коммутатора </p>
+
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab00/no%20ping.png>
+
+<p> и... оно не работает. Потому что интерфейс VLAN1 на коммутаторе выключен. Видимо в процессе конфигурации что-то пошло не так. </p>
+
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab00/vlan%20off.png>
+
+<p> включаем интерфейс: </p>
+
+<p> enable >> configure terminal </p>
+<p> > interface vlan 1 </p>
+<p> > no shutdown </p>
+
+<p> коммутатор стал доступен: </p>
+
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab00/ping%202.png>
+
+<h2> Настройки коммутатора после внесения всех изменений: </h2>
 
 <blockquote>
 <p> version 15.0 </p>
@@ -123,7 +160,7 @@ Unauthorized access is strictly prohibited. #
 <p> interface GigabitEthernet0/2 </p>
 <p> interface Vlan1 </p>
 <p>  ip address 192.168.1.2 255.255.255.0 </p>
-<p> banner motd # Unauthorized access is strictly prohibited. # </p>
+<p> banner motd ^C Unauthorized access is strictly prohibited. ^C </p>
 <p> line con 0 </p>
 <p>  password 7 0822455D0A16 </p>
 <p>  logging synchronous </p>
@@ -137,11 +174,16 @@ Unauthorized access is strictly prohibited. #
 <p> end </p>
 </blockquote>
 
-<h2> Настройки сети для ПК </h2>
-<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab00/pc%20config.png/>
-
 <h2> Эхо-запросы </h2>
+
+<p> Ping с ПК до коммутатора и ПК на самого себя </p>
+
 <img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab00/ping.png/>
 
 <h2> Telnet-соединение </h2>
-<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab00/telnet.png/>
+
+<p> Проверка подключения по telnet </p>
+<p> При подключении просит пароль, при входе в привелегированный режим - просит пароль </p>
+
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab00/telnet%201.png>
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab00/telnet%202.png>
