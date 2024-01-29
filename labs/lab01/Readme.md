@@ -60,4 +60,10 @@
 <p> после эхо-запросов: </p>
 <img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab01/s2-after.png>
 
+<p> Как видим, MAC-адрес соответствующий ПК PC-A находится на порту F0/1 (Коммутатор S1); MAC-адрес соответствующий ПК PC-B находится на порту F0/18 </p>
 
+<p> После очистки динамическая таблица пуста: </p>
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab01/s2-clear.png>
+
+<p> Спустя 10 секунд виден второй коммутатор S1: </p>
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab01/s2-later.png>
