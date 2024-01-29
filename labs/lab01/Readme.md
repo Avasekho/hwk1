@@ -81,4 +81,5 @@
 
 <p> ARP-таблица на коммутаторе S2 также наполнилась новыми записями: </p>
 <img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab01/s2-after-echo.png>
+<p> Для коммутатора S1 есть запись MAC-адреса порта F0/1 и MAC-адреса интерфейса VLAN1 </p>
 
