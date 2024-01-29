@@ -20,7 +20,7 @@
   <li> Настроить базовые параметры коммутаторов. </li>
 </ol>
 
-<p> Базовые параметры коммутатора на примере S1: </p>
+<h2> Базовые параметры коммутатора на примере S1: </h2>
 
 <p> enable >> configure terminal </p>
 <p> > no ip domain-lookup </p>
@@ -41,9 +41,15 @@
 
 <p> > copy running-config startup-config </p>
 
-<p> MAC-адрес компьютера PC-A:  </p>
+<h2> MAC-адрес компьютера PC-A: </h2>
 <img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab01/pc-a.png>
 
-<p> MAC-адрес компьютера PC-B:  </p>
+<h2> MAC-адрес компьютера PC-B: </h2>
 <img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab01/pc-b.png>
+
+<h2> Коммутатор S1 - порт F0/1: </h2>
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab01/s1-f01.png>
+
+<h2> Коммутатор S2 - порт F0/1: </h2>
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab01/s2-f01.png>
 
