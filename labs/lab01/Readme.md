@@ -1,7 +1,7 @@
 <h1> Лабораторная работа. Просмотр таблицы MAC-адресов коммутатора </h1> 
 
 <h2> Топология </h2>
-<img src=>
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab01/topology.png>
 
 <h2> Таблица адресации </h2>
 
