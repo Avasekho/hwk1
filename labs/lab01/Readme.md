@@ -67,3 +67,18 @@
 
 <p> Спустя 10 секунд виден второй коммутатор S1: </p>
 <img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab01/s2-later.png>
+
+<h2> ARP-таблица на ПК PC-B: </h2>
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab01/pc-b-arp.png>
+
+<p> В ARP-таблице виден только соседний коммутатор </p>
+
+<p> Отправим Эхо-запросы другим устройствам сети: </p>
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab01/pc-b-echo.png>
+
+<p> После Эхо-запросов ARP-таблица на ПК PC-B наполнилась новыми записями: </p>
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab01/pc-b-arp-after.png>
+
+<p> ARP-таблица на коммутаторе S2 также наполнилась новыми записями: </p>
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab01/s2-after-echo.png>
+
