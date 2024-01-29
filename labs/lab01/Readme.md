@@ -51,5 +51,13 @@
 <img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab01/s1-f01.png>
 
 <h2> Коммутатор S2 - порт F0/1: </h2>
-<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab01/s2-f01.png>
+до эхо-запросов:
+
+<h2> Таблица MAC-адресов S2: </h2>
+<p> до эхо-запросов: </p>
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab01/s2-before.png>
+
+<p> после эхо-запросов: </p>
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab01/s2-after.png>
+
 
