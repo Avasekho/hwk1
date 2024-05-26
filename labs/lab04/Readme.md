@@ -144,11 +144,14 @@ PC-B адрес с настройками получения автоматически, с включенным IPv6 unicast-rout
 
 С PC-A отправьте эхо-запрос на FE80::1. Это локальный адрес канала, назначенный G0/1 на R1.
 Отправьте эхо-запрос на интерфейс управления S1 с PC-A.
+
 <img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab04/ping_1.png>
 
 Введите команду tracert на PC-A, чтобы проверить наличие сквозного подключения к PC-B.
+
 <img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab04/ping_2.png>
 
 С PC-B отправьте эхо-запрос на PC-A.
 С PC-B отправьте эхо-запрос на локальный адрес канала G0/0 на R1.
+
 <img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab04/ping_3.png>
