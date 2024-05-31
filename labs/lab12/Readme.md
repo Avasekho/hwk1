@@ -97,12 +97,12 @@ h.	Настройте IP-адресации интерфейса, как указано в таблице выше.
 
 h.	Выключите все интерфейсы, которые не будут использоваться.
 
-interface range f0/4 - 17
-shutdown
-interface range f0/19 - 24
-shutdown
-interface range g0/1 - 2
-shutdown
+<p> > interface range f0/4 - 17 </p>
+<p> > shutdown </p>
+<p> > interface range f0/19 - 24 </p>
+<p> > shutdown </p>
+<p> > interface range g0/1 - 2 </p>
+<p> > shutdown </p>
 
 j.	Сохраните текущую конфигурацию в файл загрузочной конфигурации.
 <p> > copy running-config startup-config </p>
@@ -111,22 +111,165 @@ j.	Сохраните текущую конфигурацию в файл загрузочной конфигурации.
 
 <h2> Настройка и проверка NAT для IPv4. </h2>
 
-access-list 1 permit 192.168.1.0 0.0.0.255
-ip nat pool PUBLIC_ACCESS 209.165.200.226 209.165.200.228 netmask 255.255.255.248
-ip nat inside source list 1 pool PUBLIC_ACCESS
+Шаг 1. Настроим NAT на R1, используя пул из трех адресов 209.165.200.226-209.165.200.228. 
+
+Добавляем подсеть 192.168.1.0/24 в список доступа, заполняем пул адресов для NAT и привязываем пул к списку доступа
+
+<p> > access-list 1 permit 192.168.1.0 0.0.0.255 </p>
+<p> > ip nat pool PUBLIC_ACCESS 209.165.200.226 209.165.200.228 netmask 255.255.255.248 </p>
+<p> > ip nat inside source list 1 pool PUBLIC_ACCESS </p>
 
 Определяем внутренний интерфейс
 
-interface g0/0/1
-ip nat inside
+<p> > interface g0/0/1 </p>
+<p> > ip nat inside </p>
 
 Определяем внешний интерфейс
 
-interface g0/0/0
-ip nat outside
+<p> > interface g0/0/0 </p>
+<p> > ip nat outside </p>
 
-Попробуем проверить конфигурацию NAT
+Попробуем проверить конфигурацию NAT:
+
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab12/ping_err_1.png>
+
+Не работает :/
 
 Пинги с PC-B до R2 не проходят, внутренний интерфейс R1 доступен, таблица NAT пуста, по статистике все в misses.
 G0/0/0 на R2 c R1 пингуется.
 
+Как выяснилось на ПК забыл указать шлюз по умолчанию. После этого стал доступен пинг до интерфейса R2, но loopback все еще не пингуется. 
+
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab12/ping_err_2.png>
+
+По всей видимости R1 не знает где искать этот адрес.
+
+Пропишем статический адрес куда слать пакеты для 209.165.200.1:
+
+<p> > ip route 209.165.200.0 255.255.255.224 GigabitEthernet0/0/0 </p>
+
+Пинги от PC-B до loopback интерфейса пошли
+
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab12/ping_1.png>
+
+NAT-таблица также стала наполняться записями
+
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab12/nat_1.png>
+
+
+Проверим пинги с PC-B до loopback:
+
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab12/ping_err_3.png>
+
+Не ходит потому что тоже не указан шлюз по умолчанию. После того как настройки были поправлены - пинг идет, NAT-таблица содержит соответствующие записи
+
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab12/ping_2.png>
+
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab12/nat_2.png>
+
+Попробуем попинговать 209.165.200.1 с коммутатора S1:
+
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab12/ping_err_4.png>
+
+Ожидаемо не идет, т.к. на коммутаторе не был задан шлюз по умолчанию. Добавим шлюз:
+
+<p> > ip default-gateway 192.168.1.1 </p>
+
+Пинг пошел, таблица наполняется адресами. Все три адреса из пула NAT при деле.
+
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab12/ping_3.png>
+
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab12/nat_3.png>
+
+Теперь попробуем попинговать 209.165.200.1 с коммутатора S2:
+
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab12/ping_err_5.png>
+
+Ожидаемо, адреса в пуле закончились.
+
+Команда "show ip nat translations verbose" работать отказывается
+
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab12/verbose_err1.png>
+
+
+Очистим записи трансляций
+
+<p> > clear ip nat translation * </p>
+
+
+<h2>  Настройка и проверка PAT для IPv4 </h2>
+
+Заменим настройки преобразования с NAT на PAT. Для этого уддалим старые настройки NAT на R1
+
+<p> > no ip nat inside source list 1 pool PUBLIC_ACCESS </p>
+
+И добавим новые
+
+<p> > ip nat inside source list 1 pool PUBLIC_ACCESS overload </p>
+
+Попробуем достучаться с PC-B до Lo1 - все проходит, адрес преобразуется
+
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab12/ping_4.png>
+
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab12/pat_1.png>
+
+
+Аналогично с PC-A
+
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab12/ping_5.png>
+
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab12/pat_2.png>
+
+
+Попробуем пустить ping сразу с двух устройств - R1 преобразует их в один адрес из пула, на разные порты
+
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab12/pat_3.png>
+
+Очистим записи трансляций
+
+<p> > clear ip nat translation * </p>
+
+
+Теперь удалим команды преобразования nat pool
+
+<p> > no ip nat inside source list 1 pool PUBLIC_ACCESS overload </p>
+<p> > no ip nat pool PUBLIC_ACCESS </p>
+
+Добавим команду PAT, связав её с внешним интерфейсом
+
+ <p> > ip nat inside source list 1 interface g0/0/0 overload </p>
+
+ Проверим работу трансляции адресов:
+
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab12/pat_4.png>
+
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab12/pat_5.png>
+
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab12/pat_6.png>
+
+Теперь R1 преобразует внутренние адреса в адрес внешнего интерфейса
+
+
+<h2>  Настройка и проверка статического NAT для IPv4. </h2>
+
+
+Очистим записи трансляций
+
+<p> > clear ip nat translation * </p>
+
+
+Настроим статическое сопоставление внутреннего адреса с внешним
+
+<p> > ip nat inside source static 192.168.1.2 209.165.200.229 </p>
+
+Проверим коррепктность работы трансляции
+
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab12/ping_6.png>
+
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab12/nat_4.png>
+
+Также адрес 209.165.200.229 доступен для пинга с R2
+
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab12/ping_7.png>
+
+Таким образом, статический NAT работает
