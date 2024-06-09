@@ -104,7 +104,7 @@
 
 <p> Пробуем достучаться до коммутатора </p>
 
-<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab00/no%20ping.png>
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab01/no%20ping.png>
 
 <p> и... оно не работает. Потому что интерфейс VLAN1 на коммутаторе выключен. Видимо в процессе конфигурации что-то пошло не так. </p>
 
