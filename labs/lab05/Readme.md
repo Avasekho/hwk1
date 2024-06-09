@@ -184,162 +184,162 @@ f.	Измените способ входа в систему таким образом, чтобы использовалась проверка 
 Конфигурация маршрутизатора:
 
 R1#sh run
-Building configuration...
-
-Current configuration : 930 bytes
-!
-version 15.4
-no service timestamps log datetime msec
-no service timestamps debug datetime msec
-service password-encryption
-!
-hostname R1
-!
-enable secret 5 $1$mERr$9cTjUIEqNGurQiFU.ZeCi1
-!
-ip cef
-no ipv6 cef
-!
-username admin password 7 0800484358173537475E
-!
-no ip domain-lookup
-ip domain-name otus
-!
-spanning-tree mode pvst
-
-!
-interface GigabitEthernet0/0/0
- no ip address
- duplex auto
- speed auto
- shutdown
-!
-interface GigabitEthernet0/0/1
- ip address 192.168.1.1 255.255.255.0
- duplex auto
- speed auto
-!
-interface Vlan1
- no ip address
- shutdown
-!
-ip classless
-!
-ip flow-export version 9
-!
-no cdp run
-!
-banner motd ^C Unauthorized access is strictly prohibited. ^C
-!
-line con 0
- password 7 0822455D0A16
-!
-line aux 0
-!
-line vty 0 4
- password 7 0822455D0A16
- login local
- transport input ssh
-line vty 5 15
- password 7 0822455D0A16
- login local
- transport input ssh
-!
-end
+<p>Building configuration... </p>
+<p> </p>
+<p>Current configuration : 930 bytes </p>
+<p>! </p>
+<p>version 15.4 </p>
+<p>no service timestamps log datetime msec </p>
+<p>no service timestamps debug datetime msec </p>
+<p>service password-encryption </p>
+<p>! </p>
+<p>hostname R1 </p>
+<p>! </p>
+<p>enable secret 5 $1$mERr$9cTjUIEqNGurQiFU.ZeCi1 </p>
+<p>! </p>
+<p>ip cef </p>
+<p>no ipv6 cef </p>
+<p>! </p>
+<p>username admin password 7 0800484358173537475E </p>
+<p>! </p>
+<p>no ip domain-lookup </p>
+<p>ip domain-name otus </p>
+<p>! </p>
+<p>spanning-tree mode pvst </p>
+<p> </p>
+<p>! </p>
+<p>interface GigabitEthernet0/0/0 </p>
+<p> no ip address </p>
+<p> duplex auto </p>
+<p> speed auto </p>
+<p> shutdown </p>
+<p>! </p>
+<p>interface GigabitEthernet0/0/1 </p>
+<p> ip address 192.168.1.1 255.255.255.0 </p>
+<p> duplex auto </p>
+<p> speed auto </p>
+<p>! </p>
+<p>interface Vlan1 </p>
+<p> no ip address </p>
+<p> shutdown </p>
+<p>! </p>
+<p>ip classless </p>
+<p>! </p>
+<p>ip flow-export version 9 </p>
+<p>! </p>
+<p>no cdp run </p>
+<p>! </p>
+<p>banner motd ^C Unauthorized access is strictly prohibited. ^C </p>
+<p>! </p>
+<p>line con 0 </p>
+<p> password 7 0822455D0A16 </p>
+<p>! </p>
+<p>line aux 0 </p>
+<p>! </p>
+<p>line vty 0 4 </p>
+<p> password 7 0822455D0A16 </p>
+<p> login local </p>
+<p> transport input ssh </p>
+<p>line vty 5 15 </p>
+<p> password 7 0822455D0A16 </p>
+<p> login local </p>
+<p> transport input ssh </p>
+<p>! </p>
+<p>end </p>
 
 Конфигурация коммутатора:
 
 S1#sh run
-Building configuration...
-
-Current configuration : 1459 bytes
-!
-version 15.0
-no service timestamps log datetime msec
-no service timestamps debug datetime msec
-service password-encryption
-!
-hostname S1
-!
-enable secret 5 $1$mERr$9cTjUIEqNGurQiFU.ZeCi1
-!
-no ip domain-lookup
-ip domain-name otus
-!
-username admin privilege 1 password 7 0800484358173537475E
-!
-spanning-tree mode pvst
-spanning-tree extend system-id
-!
-interface FastEthernet0/1
-!
-interface FastEthernet0/2
-!
-interface FastEthernet0/3
-!
-interface FastEthernet0/4
-!
-interface FastEthernet0/5
-!
-interface FastEthernet0/6
-!
-interface FastEthernet0/7
-!
-interface FastEthernet0/8
-!
-interface FastEthernet0/9
-!
-interface FastEthernet0/10
-!
-interface FastEthernet0/11
-!
-interface FastEthernet0/12
-!
-interface FastEthernet0/13
-!
-interface FastEthernet0/14
-!
-interface FastEthernet0/15
-!
-interface FastEthernet0/16
-!
-interface FastEthernet0/17
-!
-interface FastEthernet0/18
-!
-interface FastEthernet0/19
-!
-interface FastEthernet0/20
-!
-interface FastEthernet0/21
-!
-interface FastEthernet0/22
-!
-interface FastEthernet0/23
-!
-interface FastEthernet0/24
-!
-interface GigabitEthernet0/1
-!
-interface GigabitEthernet0/2
-!
-interface Vlan1
- ip address 192.168.1.11 255.255.255.0
-!
-ip default-gateway 192.168.1.1
-!
-banner motd ^C Unauthorized access is strictly prohibited. ^C
-!
-line con 0
- password 7 0822455D0A16
-!
-line vty 0 4
- password 7 0822455D0A16
- login local
- transport input ssh
-line vty 5 15
- password 7 0822455D0A16
- login local
- transport input ssh
-!
-end
+<p>Building configuration... </p>
+<p> </p>
+<p>Current configuration : 1459 bytes </p>
+<p>! </p>
+<p>version 15.0 </p>
+<p>no service timestamps log datetime msec </p>
+<p>no service timestamps debug datetime msec </p>
+<p>service password-encryption </p>
+<p>! </p>
+<p>hostname S1 </p>
+<p>! </p>
+<p>enable secret 5 $1$mERr$9cTjUIEqNGurQiFU.ZeCi1 </p>
+<p>! </p>
+<p>no ip domain-lookup </p>
+<p>ip domain-name otus </p>
+<p>! </p>
+<p>username admin privilege 1 password 7 0800484358173537475E </p>
+<p>! </p>
+<p>spanning-tree mode pvst </p>
+<p>spanning-tree extend system-id </p>
+<p>! </p>
+<p>interface FastEthernet0/1 </p>
+<p>! </p>
+<p>interface FastEthernet0/2 </p>
+<p>! </p>
+<p>interface FastEthernet0/3 </p>
+<p>! </p>
+<p>interface FastEthernet0/4 </p>
+<p>! </p>
+<p>interface FastEthernet0/5 </p>
+<p>! </p>
+<p>interface FastEthernet0/6 </p>
+<p>! </p>
+<p>interface FastEthernet0/7 </p>
+<p>! </p>
+<p>interface FastEthernet0/8 </p>
+<p>! </p>
+<p>interface FastEthernet0/9 </p>
+<p>! </p>
+<p>interface FastEthernet0/10 </p>
+<p>! </p>
+<p>interface FastEthernet0/11 </p>
+<p>! </p>
+<p>interface FastEthernet0/12 </p>
+<p>! </p>
+<p>interface FastEthernet0/13 </p>
+<p>! </p>
+<p>interface FastEthernet0/14 </p>
+<p>! </p>
+<p>interface FastEthernet0/15 </p>
+<p>! </p>
+<p>interface FastEthernet0/16 </p>
+<p>! </p>
+<p>interface FastEthernet0/17 </p>
+<p>! </p>
+<p>interface FastEthernet0/18 </p>
+<p>! </p>
+<p>interface FastEthernet0/19 </p>
+<p>! </p>
+<p>interface FastEthernet0/20 </p>
+<p>! </p>
+<p>interface FastEthernet0/21 </p>
+<p>! </p>
+<p>interface FastEthernet0/22 </p>
+<p>! </p>
+<p>interface FastEthernet0/23 </p>
+<p>! </p>
+<p>interface FastEthernet0/24 </p>
+<p>! </p>
+<p>interface GigabitEthernet0/1 </p>
+<p>! </p>
+<p>interface GigabitEthernet0/2 </p>
+<p>! </p>
+<p>interface Vlan1 </p>
+<p> ip address 192.168.1.11 255.255.255.0 </p>
+<p>! </p>
+<p>ip default-gateway 192.168.1.1 </p>
+<p>! </p>
+<p>banner motd ^C Unauthorized access is strictly prohibited. ^C </p>
+<p>! </p>
+<p>line con 0 </p>
+<p> password 7 0822455D0A16 </p>
+<p>! </p>
+<p>line vty 0 4 </p>
+<p> password 7 0822455D0A16 </p>
+<p> login local </p>
+<p> transport input ssh </p>
+<p>line vty 5 15 </p>
+<p> password 7 0822455D0A16 </p>
+<p> login local </p>
+<p> transport input ssh </p>
+<p>! </p>
+<p>end </p>
