@@ -184,6 +184,7 @@ f.	Измените способ входа в систему таким образом, чтобы использовалась проверка 
 Конфигурация маршрутизатора:
 
 R1#sh run
+<blockquote>
 <p>Building configuration... </p>
 <p> </p>
 <p>Current configuration : 930 bytes </p>
@@ -246,10 +247,12 @@ R1#sh run
 <p> transport input ssh </p>
 <p>! </p>
 <p>end </p>
+</blockquote>
 
 Конфигурация коммутатора:
 
 S1#sh run
+<blockquote>
 <p>Building configuration... </p>
 <p> </p>
 <p>Current configuration : 1459 bytes </p>
@@ -343,3 +346,4 @@ S1#sh run
 <p> transport input ssh </p>
 <p>! </p>
 <p>end </p>
+</blockquote>
