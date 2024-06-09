@@ -271,6 +271,7 @@ S2:
 <p> > encapsulation dot1q 1000 native </p>
 
 Интерфейсы доступны, пинг идет
+
 <img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab06/vlan_6.png>
 
 
@@ -371,6 +372,182 @@ R1#sh run
 <p> password 7 0822455D0A16</p>
 <p>!</p>
 <p>line aux 0</p>
+<p>!</p>
+<p>line vty 0 4</p>
+<p> password 7 0822455D0A16</p>
+<p> login</p>
+<p>line vty 5 15</p>
+<p> password 7 0822455D0A16</p>
+<p> login</p>
+<p>!</p>
+<p>end</p>
+</blockquote>
+
+
+Конфигурация коммутатора (на примере S1):
+
+S1#sh run
+<blockquote>
+<p>Building configuration...</p>
+<p></p>
+<p>Current configuration : 3053 bytes</p>
+<p>!</p>
+<p>version 15.0</p>
+<p>no service timestamps log datetime msec</p>
+<p>no service timestamps debug datetime msec</p>
+<p>service password-encryption</p>
+<p>!</p>
+<p>hostname S1</p>
+<p>!</p>
+<p>enable secret 5 $1$mERr$9cTjUIEqNGurQiFU.ZeCi1</p>
+<p>!</p>
+<p>no ip domain-lookup</p>
+<p>!</p>
+<p>spanning-tree mode pvst</p>
+<p>spanning-tree extend system-id</p>
+<p>!</p>
+<p>interface FastEthernet0/1</p>
+<p> switchport trunk native vlan 1000</p>
+<p> switchport trunk allowed vlan 10,20,30,1000</p>
+<p> switchport mode trunk</p>
+<p>!</p>
+<p>interface FastEthernet0/2</p>
+<p> switchport access vlan 999</p>
+<p> switchport mode access</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/3</p>
+<p> switchport access vlan 999</p>
+<p> switchport mode access</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/4</p>
+<p> switchport access vlan 999</p>
+<p> switchport mode access</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/5</p>
+<p> switchport trunk native vlan 1000</p>
+<p> switchport trunk allowed vlan 10,20,30,1000</p>
+<p> switchport mode trunk</p>
+<p>!</p>
+<p>interface FastEthernet0/6</p>
+<p> switchport access vlan 20</p>
+<p> switchport mode access</p>
+<p>!</p>
+<p>interface FastEthernet0/7</p>
+<p> switchport access vlan 999</p>
+<p> switchport mode access</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/8</p>
+<p> switchport access vlan 999</p>
+<p> switchport mode access</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/9</p>
+<p> switchport access vlan 999</p>
+<p> switchport mode access</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/10</p>
+<p> switchport access vlan 999</p>
+<p> switchport mode access</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/11</p>
+<p> switchport access vlan 999</p>
+<p> switchport mode access</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/12</p>
+<p> switchport access vlan 999</p>
+<p> switchport mode access</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/13</p>
+<p> switchport access vlan 999</p>
+<p> switchport mode access</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/14</p>
+<p> switchport access vlan 999</p>
+<p> switchport mode access</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/15</p>
+<p> switchport access vlan 999</p>
+<p> switchport mode access</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/16</p>
+<p> switchport access vlan 999</p>
+<p> switchport mode access</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/17</p>
+<p> switchport access vlan 999</p>
+<p> switchport mode access</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/18</p>
+<p> switchport access vlan 999</p>
+<p> switchport mode access</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/19</p>
+<p> switchport access vlan 999</p>
+<p> switchport mode access</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/20</p>
+<p> switchport access vlan 999</p>
+<p> switchport mode access</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/21</p>
+<p> switchport access vlan 999</p>
+<p> switchport mode access</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/22</p>
+<p> switchport access vlan 999</p>
+<p> switchport mode access</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/23</p>
+<p> switchport access vlan 999</p>
+<p> switchport mode access</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/24</p>
+<p> switchport access vlan 999</p>
+<p> switchport mode access</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface GigabitEthernet0/1</p>
+<p> switchport access vlan 999</p>
+<p> switchport mode access</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface GigabitEthernet0/2</p>
+<p> switchport access vlan 999</p>
+<p> switchport mode access</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface Vlan1</p>
+<p> no ip address</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface Vlan10</p>
+<p> ip address 192.168.10.11 255.255.255.0</p>
+<p>!</p>
+<p>ip default-gateway 192.168.10.1</p>
+<p>!</p>
+<p>banner motd ^C Unauthorized access is strictly prohibited. ^C</p>
+<p>!</p>
+<p>line con 0</p>
+<p> password 7 0822455D0A16</p>
 <p>!</p>
 <p>line vty 0 4</p>
 <p> password 7 0822455D0A16</p>
