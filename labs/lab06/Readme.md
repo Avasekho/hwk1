@@ -50,49 +50,49 @@ b.	Войдите в режим конфигурации.
 
 <blockquote>
 c.	Назначьте маршрутизатору имя устройства.
-<blockquote>
+</blockquote>
 <p> hostname R1 </p>
 
 <blockquote>
 d.	Отключите поиск DNS, чтобы предотвратить попытки маршрутизатора неверно преобразовывать введенные команды таким образом, как будто они являются именами узлов.
-<blockquote>
+</blockquote>
 <p> > no ip domain-lookup </p>
 
 <blockquote>
 e.	Назначьте class в качестве зашифрованного пароля привилегированного режима EXEC.
-<blockquote>
+</blockquote>
 <p> > enable secret class </p>
 
 <blockquote>
 f.	Назначьте cisco в качестве пароля консоли и включите вход в систему по паролю.
-<blockquote>
+</blockquote>
 <p> > line console 0 </p>
 <p> > password cisco </p>
 
 <blockquote>
 g.	Установите cisco в качестве пароля виртуального терминала и активируйте вход.
-<blockquote>
+</blockquote>
 <p> > line vty 0 15 </p>
 <p> > password cisco </p>
 
 <blockquote>
 h.	Зашифруйте открытые пароли.
-<blockquote>
+</blockquote>
 <p> > service password-encryption </p>
 
 <blockquote>
 i.	Создайте баннер с предупреждением о запрете несанкционированного доступа к устройству.
-<blockquote>
+</blockquote>
 <p> > banner motd # Unauthorized access is strictly prohibited. # </p>
 
 <blockquote>
 j.	Сохраните текущую конфигурацию в файл загрузочной конфигурации.
-<blockquote>
+</blockquote>
 <p> > copy running-config startup-config </p>
 
 <blockquote>
 k.	Настройте на маршрутизаторе время.
-<blockquote>
+</blockquote>
 <p> > clock set 15:57:00 09 June 2024 </p>
 
 Настроим базовые параметры для коммутаторов:
@@ -105,44 +105,44 @@ a.	Присвойте коммутатору имя устройства.
 
 <blockquote>
 b.	Отключите поиск DNS, чтобы предотвратить попытки маршрутизатора неверно преобразовывать введенные команды таким образом, как будто они являются именами узлов.
-<blockquote>
+</blockquote>
 <p> > no ip domain-lookup </p>
 
 <blockquote>
 c.	Назначьте class в качестве зашифрованного пароля привилегированного режима EXEC.
-<blockquote>
+</blockquote>
 <p> > enable secret class </p>
 
 <blockquote>
 d.	Назначьте cisco в качестве пароля консоли и включите вход в систему по паролю.
-<blockquote>
+</blockquote>
 <p> > line console 0 </p>
 <p> > password cisco </p>
 
 <blockquote>
 e.	Установите cisco в качестве пароля виртуального терминала и активируйте вход.
-<blockquote>
+</blockquote>
 <p> > line vty 0 15 </p>
 <p> > password cisco </p>
 
 <blockquote>
 f.	Зашифруйте открытые пароли.
-<blockquote>
+</blockquote>
 <p> > service password-encryption </p>
 
 <blockquote>
 g.	Создайте баннер с предупреждением о запрете несанкционированного доступа к устройству.
-<blockquote>
+</blockquote>
 <p> > banner motd # Unauthorized access is strictly prohibited. # </p>
 
 <blockquote>
 h.	Настройте на коммутаторах время.
-<blockquote>
+</blockquote>
 <p> > clock set 16:02:00 09 June 2024 </p>
 
 <blockquote>
 i.	Сохранение текущей конфигурации в качестве начальной.
-<blockquote>
+</blockquote>
 <p> > copy running-config startup-config </p>
 
 Настроим интерфейсы на ПК:
