@@ -135,6 +135,8 @@ h.	Скопируйте текущую конфигурацию в файл загрузочной конфигурации.
 
 Отобразим данные протокола spanning-tree:
 
+<p> > show spanning-tree </p>
+
 S1:
 <img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab07/stp_1.png>
 
@@ -177,3 +179,106 @@ F0/2 на S1
 Стоимость пути от корневого моста до этого порта выше чем до другого порта на том же устройстве.
 
 
+<h2> Часть 3. Наблюдение за процессом выбора протоколом STP порта, исходя из стоимости портов </h2>
+
+Определим коммутатор с заблокированным портом:
+
+<p> > show spanning-tree </p>
+
+S1:
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab07/stp_4.png>
+
+S2:
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab07/stp_5.png>
+
+S3:
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab07/stp_6.png>
+
+Коммутатор с заблокированным портом - S1
+
+
+Изменим стоимость порта:
+
+Для корневого порта на S1:
+<p> > interface f0/4 </p>
+<p> > spanning-tree vlan 1 cost 18 </p>
+
+S1:
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab07/stp_7.png>
+
+S2:
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab07/stp_8.png>
+
+Теперь заблокированный порт назначен на порт F0/2 коммутатора S2
+
+<blockquote>
+Почему протокол spanning-tree заменяет ранее заблокированный порт на назначенный порт и блокирует порт, который был назначенным портом на другом коммутаторе?
+</blockquote>
+Если ранее на основании сравнения идентификаторов BID при идентичном значении приоритета портов из-за MAC-адреса топология выглядела как S3 -> S2 -> S1;
+то теперь исходя из приоритета корневого порта стоимость порта F0/2 на коммутаторе S1 изменилась и он стал более приоритетным относительно порта F0/2 на коммутаторе S2.
+Новая топология представляет собой S3 -> S1 -> S2.
+
+Удалим изменения стоимости порта:
+
+<p> > interface f0/4 </p>
+<p> > no spanning-tree vlan 1 cost 18 </p>
+
+Порты вернулись в исходное состояние
+
+S1:
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab07/stp_9.png>
+
+S2:
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab07/stp_10.png>
+
+
+<h2> Часть 4. Наблюдение за процессом выбора протоколом STP порта, исходя из приоритета портов </h2>
+
+Включим все подключенные порты на коммутаторах:
+
+<p> > interface range F0/1-4 </p>
+<p> > no shutdown </p>
+
+S1:
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab07/stp_11.png>
+
+S2:
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab07/stp_12.png>
+
+S3:
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab07/stp_13.png>
+
+<blockquote>
+Какой порт выбран протоколом STP в качестве порта корневого моста на каждом коммутаторе некорневого моста?
+</blockquote>
+S1 - Fa0/3
+S2 - Fa0/3
+
+<blockquote>
+Почему протокол STP выбрал эти порты в качестве портов корневого моста на этих коммутаторах
+</blockquote>
+Порты получили наименьшее значение по сравнению значений в следующем порядке:
+Root Bridge ID -> Цена (Cost) -> Sender Bridge ID -> Sender Port ID -> Reciever Port ID
+
+<p> На примере порта S1 - Fa0/3: </p>
+<p> - S3 (Root Bridge) отправляет пакеты с S3 - Fa0/3 на S1 - Fa0/3 и с S3 - Fa0/4 на S1 - Fa0/4. </p>
+<p> - Root Bridge ID - идентичен </p>
+<p> - Цена (Cost) идентичны (100мбит == 19) </p>
+<p> - Sender Bridge ID - идентичен </p>
+<p> - Sender Port ID - отличаются; Fa0/3 на S3 меньше Fa0/4 на S3 и соответственно корневым портом на S1 выбран Fa0/3 </p>
+
+
+<blockquote>
+1.	Какое значение протокол STP использует первым после выбора корневого моста, чтобы определить выбор порта?
+</blockquote>
+Цена (Cost)
+
+<blockquote>
+2.	Если первое значение на двух портах одинаково, какое следующее значение будет использовать протокол STP при выборе порта?
+</blockquote>
+Sender Bridge ID
+
+<blockquote>
+3.	Если оба значения на двух портах равны, каким будет следующее значение, которое использует протокол STP при выборе порта?
+</blockquote>
+Sender Port ID, если и он идентичен, то Reciever Port ID который уже должен быть уникальным
