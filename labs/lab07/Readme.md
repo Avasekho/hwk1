@@ -80,6 +80,7 @@ h.	Скопируйте текущую конфигурацию в файл загрузочной конфигурации.
 Успешно ли выполняется эхо-запрос от коммутатора S1 на коммутатор S2?
 </blockquote>
 Выполняется успешно
+
 <img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab07/ping_1.png>
 <img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab07/trace_1.png>
 
@@ -87,12 +88,15 @@ h.	Скопируйте текущую конфигурацию в файл загрузочной конфигурации.
 Успешно ли выполняется эхо-запрос от коммутатора S1 на коммутатор S3?
 </blockquote>
 Выполняется успешно
+
 <img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab07/ping_2.png>
+
 
 <blockquote>
 Успешно ли выполняется эхо-запрос от коммутатора S2 на коммутатор S3?
 </blockquote>
 Выполняется успешно
+
 <img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab07/ping_3.png>
 
 
@@ -106,11 +110,13 @@ h.	Скопируйте текущую конфигурацию в файл загрузочной конфигурации.
 <p> > shutdown </p>
 // аналогично на других коммутаторах
 
+
 Настроим подключенные порты в качестве транковых:
 
 <p> > interface range F0/1-4 </p>
 <p> > switchport trunk allowed vlan 1 </p>
 // аналогично на других коммутаторах
+
 
 Включим порты F0/2 и F0/4 на всех коммутаторах:
 
@@ -120,45 +126,55 @@ h.	Скопируйте текущую конфигурацию в файл загрузочной конфигурации.
 <p> > no shutdown </p>
 // аналогично на других коммутаторах
 
+
 Отобразим данные протокола spanning-tree:
 
 <p> > show spanning-tree </p>
 
 S1:
+
 <img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab07/stp_1.png>
 
 S2:
+
 <img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab07/stp_2.png>
 
 S3:
+
 <img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab07/stp_3.png>
 
 <img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab07/topology_2.png>
+
 
 <blockquote>
 Какой коммутатор является корневым мостом?
 </blockquote>
 S3
 
+
 <blockquote>
 Почему этот коммутатор был выбран протоколом spanning-tree в качестве корневого моста?
 </blockquote>
 Приоритет у всех трех коммутаторов одинаковый, следовательно выбирается по меньшему значению MAC-адреса
+
 
 <blockquote>
 Какие порты на коммутаторе являются корневыми портами?
 </blockquote>
 F0/4 на S1 и F0/4 на S2
 
+
 <blockquote>
 Какие порты на коммутаторе являются назначенными портами?
 </blockquote>
 F0/2 и F0/4 на S3 и F0/2 на S2
 
+
 <blockquote>
 Какой порт отображается в качестве альтернативного и в настоящее время заблокирован?
 </blockquote>
 F0/2 на S1
+
 
 <blockquote>
 Почему протокол spanning-tree выбрал этот порт в качестве невыделенного (заблокированного) порта?
@@ -168,35 +184,46 @@ F0/2 на S1
 
 <h2> Часть 3. Наблюдение за процессом выбора протоколом STP порта, исходя из стоимости портов </h2>
 
+
 Определим коммутатор с заблокированным портом:
 
 <p> > show spanning-tree </p>
 
+
 S1:
+
 <img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab07/stp_4.png>
 
 S2:
+
 <img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab07/stp_5.png>
 
 S3:
+
 <img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab07/stp_6.png>
 
 Коммутатор с заблокированным портом - S1
 
 
+
+
 Изменим стоимость порта:
+
 
 Для корневого порта на S1:
 <p> > interface f0/4 </p>
 <p> > spanning-tree vlan 1 cost 18 </p>
 
 S1:
+
 <img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab07/stp_7.png>
 
 S2:
+
 <img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab07/stp_8.png>
 
 Теперь заблокированный порт назначен на порт F0/2 коммутатора S2
+
 
 <blockquote>
 Почему протокол spanning-tree заменяет ранее заблокированный порт на назначенный порт и блокирует порт, который был назначенным портом на другом коммутаторе?
@@ -205,17 +232,21 @@ S2:
 то теперь исходя из приоритета корневого порта стоимость порта F0/2 на коммутаторе S1 изменилась и он стал более приоритетным относительно порта F0/2 на коммутаторе S2.
 Новая топология представляет собой S3 -> S1 -> S2.
 
+
 Удалим изменения стоимости порта:
 
 <p> > interface f0/4 </p>
 <p> > no spanning-tree vlan 1 cost 18 </p>
 
+
 Порты вернулись в исходное состояние
 
 S1:
+
 <img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab07/stp_9.png>
 
 S2:
+
 <img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab07/stp_10.png>
 
 
@@ -227,19 +258,24 @@ S2:
 <p> > no shutdown </p>
 
 S1:
+
 <img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab07/stp_11.png>
 
 S2:
+
 <img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab07/stp_12.png>
 
 S3:
+
 <img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab07/stp_13.png>
+
 
 <blockquote>
 Какой порт выбран протоколом STP в качестве порта корневого моста на каждом коммутаторе некорневого моста?
 </blockquote>
-S1 - Fa0/3
-S2 - Fa0/3
+<p>S1 - Fa0/3</p>
+<p>S2 - Fa0/3</p>
+
 
 <blockquote>
 Почему протокол STP выбрал эти порты в качестве портов корневого моста на этих коммутаторах
@@ -260,10 +296,12 @@ S2 - Fa0/3
 </blockquote>
 Цена (Cost)
 
+
 <blockquote>
 2.	Если первое значение на двух портах одинаково, какое следующее значение будет использовать протокол STP при выборе порта?
 </blockquote>
 Sender Bridge ID
+
 
 <blockquote>
 3.	Если оба значения на двух портах равны, каким будет следующее значение, которое использует протокол STP при выборе порта?
