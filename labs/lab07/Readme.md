@@ -257,8 +257,8 @@ S2 - Fa0/3
 <blockquote>
 ѕочему протокол STP выбрал эти порты в качестве портов корневого моста на этих коммутаторах
 </blockquote>
-ѕорты получили наименьшее значение по сравнению значений в следующем пор€дке:
-Root Bridge ID -> ÷ена (Cost) -> Sender Bridge ID -> Sender Port ID -> Reciever Port ID
+<p>ѕорты получили наименьшее значение по сравнению значений в следующем пор€дке:</p>
+<p>Root Bridge ID -> ÷ена (Cost) -> Sender Bridge ID -> Sender Port ID -> Reciever Port ID</p>
 
 <p> Ќа примере порта S1 - Fa0/3: </p>
 <p> - S3 (Root Bridge) отправл€ет пакеты с S3 - Fa0/3 на S1 - Fa0/3 и с S3 - Fa0/4 на S1 - Fa0/4. </p>
