@@ -480,13 +480,13 @@ a.	Из командной строки компьютера PC-B выполните команду ipconfig /all.
 b.	После завершения процесса обновления выполните команду ipconfig для просмотра новой информации об IP-адресе.
 </blockquote>
 <p>// адрес не получает, пинг не идет</p>
-<p>// Хм... ну в общем все как всегда, что-то со шлюзами т.е. все адреса входят в 192.168.1.0/24 то R1 не понимает куда слать пакеты для подсети С</p>
+<p>// Хм... ну в общем все как всегда, что-то со шлюзами т.к. все адреса входят в 192.168.1.0/24 то R1 не понимает куда слать пакеты для подсети С</p>
 <p>// добавим статический путь:</p>
 
 <p>R1:</p>
 <p>ip route 192.168.1.96 255.255.255.240 GigabitEthernet0/0/0</p>
 
-<p>Но дальше R2 и PC-B могут не понимать куда слать паекты в сети A и B, так что им тоже принудительно пропищем куда их искать:</p>
+<p>Но дальше R2 и PC-B могут не понимать куда слать пакеты в сети A и B, так что им тоже принудительно пропищем куда их искать:</p>
 
 <p>R2</p>
 <p>ip route 192.168.1.64 255.255.255.224 GigabitEthernet0/0/0</p>
@@ -515,9 +515,12 @@ e.	Выполните команду show ip dhcp server statistics для проверки сообщений DHCP.
 </blockquote>
 <p>//команда не поддерживается в packet tracer</p>
 
+
+
 Конфигурация маршрутизатора:
 
 R1#sh run
+<blockquote>
 <p>Building configuration...</p>
 <p></p>
 <p>Current configuration : 1631 bytes</p>
@@ -603,9 +606,12 @@ R1#sh run
 <p> login</p>
 <p>!</p>
 <p>end</p>
+</blockquote>
+
 
 
 R2#sh run
+<blockquote>
 <p>Building configuration...</p>
 <p></p>
 <p>Current configuration : 997 bytes</p>
@@ -665,11 +671,14 @@ R2#sh run
 <p> login</p>
 <p>!</p>
 <p>end</p>
+</blockquote>
+
 
 
 Конфигурация коммутатора:
 
 S1#sh run
+<blockquote>
 <p>Building configuration...</p>
 <p></p>
 <p>Current configuration : 3014 bytes</p>
@@ -839,9 +848,12 @@ S1#sh run
 <p> login</p>
 <p>!</p>
 <p>end</p>
+</blockquote>
+
 
 
 S2#sh run
+<blockquote>
 <p>Building configuration...</p>
 <p></p>
 <p>Current configuration : 1615 bytes</p>
@@ -956,3 +968,5 @@ S2#sh run
 <p> login</p>
 <p>!</p>
 <p>end</p>
+</blockquote>
+
