@@ -479,26 +479,480 @@ a.	Из командной строки компьютера PC-B выполните команду ipconfig /all.
 <blockquote>
 b.	После завершения процесса обновления выполните команду ipconfig для просмотра новой информации об IP-адресе.
 </blockquote>
-// адрес не получает, пинг не идет
-// R2 не передает дальше бродкасты
-// The DHCP server does not have a pool configured for the received port. It drops the packet.
-<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab08-dhcp4/err_1.png>
+<p>// адрес не получает, пинг не идет</p>
+<p>// Хм... ну в общем все как всегда, что-то со шлюзами т.е. все адреса входят в 192.168.1.0/24 то R1 не понимает куда слать пакеты для подсети С</p>
+<p>// добавим статический путь:</p>
 
+<p>R1:</p>
+<p>ip route 192.168.1.96 255.255.255.240 GigabitEthernet0/0/0</p>
 
+<p>Но дальше R2 и PC-B могут не понимать куда слать паекты в сети A и B, так что им тоже принудительно пропищем куда их искать:</p>
+
+<p>R2</p>
+<p>ip route 192.168.1.64 255.255.255.224 GigabitEthernet0/0/0</p>
+<p>ip route 192.168.1.0 255.255.255.192 GigabitEthernet0/0/0</p>
 
 
 <blockquote>
 c.	Проверьте подключение с помощью пинга IP-адреса интерфейса R1 G0/0/1.
 </blockquote>
+<p>У G0/0/1 на R1 нет IP-адреса, и не должно быть в соответствии с таблицей =/</p>
 
+<p>Пинг до G0/0/1.100</p>
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab08-dhcp4/ping_5.png>
+
+
+<p>Пинг до G0/0/1.200</p>
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab08-dhcp4/ping_6.png>
 
 <blockquote>
 d.	Выполните show ip dhcp binding для R1 для проверки назначений адресов в DHCP.
 </blockquote>
-
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab08-dhcp4/binding_1.png>
 
 <blockquote>
 e.	Выполните команду show ip dhcp server statistics для проверки сообщений DHCP.
 </blockquote>
+<p>//команда не поддерживается в packet tracer</p>
+
+Конфигурация маршрутизатора:
+
+R1#sh run
+<p>Building configuration...</p>
+<p></p>
+<p>Current configuration : 1631 bytes</p>
+<p>!</p>
+<p>version 15.4</p>
+<p>no service timestamps log datetime msec</p>
+<p>no service timestamps debug datetime msec</p>
+<p>service password-encryption</p>
+<p>!</p>
+<p>hostname R1</p>
+<p>!</p>
+<p>enable secret 5 $1$mERr$9cTjUIEqNGurQiFU.ZeCi1</p>
+<p>!</p>
+<p>ip dhcp excluded-address 192.168.1.1 192.168.1.5</p>
+<p>ip dhcp excluded-address 192.168.1.65 192.168.1.70</p>
+<p>ip dhcp excluded-address 192.168.1.97 192.168.1.102</p>
+<p>!</p>
+<p>ip dhcp pool R1_Client_LAN</p>
+<p> network 192.168.1.0 255.255.255.192</p>
+<p> default-router 192.168.1.1</p>
+<p> domain-name CCNA-lab.com</p>
+<p>ip dhcp pool R2_Client_LAN</p>
+<p> network 192.168.1.96 255.255.255.240</p>
+<p> default-router 192.168.1.97</p>
+<p> domain-name CCNA-lab.com</p>
+<p>!</p>
+<p>ip cef</p>
+<p>no ipv6 cef</p>
+<p>!</p>
+<p>no ip domain-lookup</p>
+<p>!</p>
+<p>spanning-tree mode pvst</p>
+<p>!</p>
+<p>interface GigabitEthernet0/0/0</p>
+<p> ip address 10.0.0.1 255.255.255.252</p>
+<p> duplex auto</p>
+<p> speed auto</p>
+<p>!</p>
+<p>interface GigabitEthernet0/0/1</p>
+<p> no ip address</p>
+<p> duplex auto</p>
+<p> speed auto</p>
+<p>!</p>
+<p>interface GigabitEthernet0/0/1.100</p>
+<p> description Clients</p>
+<p> encapsulation dot1Q 100</p>
+<p> ip address 192.168.1.1 255.255.255.192</p>
+<p>!</p>
+<p>interface GigabitEthernet0/0/1.200</p>
+<p> description Management</p>
+<p> encapsulation dot1Q 200</p>
+<p> ip address 192.168.1.65 255.255.255.224</p>
+<p>!</p>
+<p>interface GigabitEthernet0/0/1.1000</p>
+<p> description Private</p>
+<p> encapsulation dot1Q 1000 native</p>
+<p> no ip address</p>
+<p>!</p>
+<p>interface Vlan1</p>
+<p> no ip address</p>
+<p> shutdown</p>
+<p>!</p>
+<p>ip default-gateway 10.0.0.2</p>
+<p>ip classless</p>
+<p>ip route 192.168.1.96 255.255.255.240 GigabitEthernet0/0/0 </p>
+<p>!</p>
+<p>ip flow-export version 9</p>
+<p>!</p>
+<p>no cdp run</p>
+<p>!</p>
+<p>banner motd ^C Unauthorized access is strictly prohibited. ^C</p>
+<p>!</p>
+<p>line con 0</p>
+<p> password 7 0822455D0A16</p>
+<p>!</p>
+<p>line aux 0</p>
+<p>!</p>
+<p>line vty 0 4</p>
+<p> password 7 0822455D0A16</p>
+<p> login</p>
+<p>line vty 5 15</p>
+<p> password 7 0822455D0A16</p>
+<p> login</p>
+<p>!</p>
+<p>end</p>
 
 
+R2#sh run
+<p>Building configuration...</p>
+<p></p>
+<p>Current configuration : 997 bytes</p>
+<p>!</p>
+<p>version 15.4</p>
+<p>no service timestamps log datetime msec</p>
+<p>no service timestamps debug datetime msec</p>
+<p>service password-encryption</p>
+<p>!</p>
+<p>hostname R2</p>
+<p>!</p>
+<p>enable secret 5 $1$mERr$9cTjUIEqNGurQiFU.ZeCi1</p>
+<p>!</p>
+<p>ip cef</p>
+<p>no ipv6 cef</p>
+<p>!</p>
+<p>no ip domain-lookup</p>
+<p>!</p>
+<p>spanning-tree mode pvst</p>
+<p>!</p>
+<p>interface GigabitEthernet0/0/0</p>
+<p> ip address 10.0.0.2 255.255.255.252</p>
+<p> duplex auto</p>
+<p> speed auto</p>
+<p>!</p>
+<p>interface GigabitEthernet0/0/1</p>
+<p> ip address 192.168.1.97 255.255.255.240</p>
+<p> ip helper-address 10.0.0.1</p>
+<p> duplex auto</p>
+<p> speed auto</p>
+<p>!</p>
+<p>interface Vlan1</p>
+<p> no ip address</p>
+<p> shutdown</p>
+<p>!</p>
+<p>ip default-gateway 10.0.0.1</p>
+<p>ip classless</p>
+<p>ip route 192.168.1.64 255.255.255.224 GigabitEthernet0/0/0 </p>
+<p>ip route 192.168.1.0 255.255.255.192 GigabitEthernet0/0/0 </p>
+<p>!</p>
+<p>ip flow-export version 9</p>
+<p>!</p>
+<p>no cdp run</p>
+<p>!</p>
+<p>banner motd ^C Unauthorized access is strictly prohibited. ^C</p>
+<p>!</p>
+<p>line con 0</p>
+<p> password 7 0822455D0A16</p>
+<p>!</p>
+<p>line aux 0</p>
+<p>!</p>
+<p>line vty 0 4</p>
+<p> password 7 0822455D0A16</p>
+<p> login</p>
+<p>line vty 5 15</p>
+<p> password 7 0822455D0A16</p>
+<p> login</p>
+<p>!</p>
+<p>end</p>
+
+
+Конфигурация коммутатора:
+
+S1#sh run
+<p>Building configuration...</p>
+<p></p>
+<p>Current configuration : 3014 bytes</p>
+<p>!</p>
+<p>version 15.0</p>
+<p>no service timestamps log datetime msec</p>
+<p>no service timestamps debug datetime msec</p>
+<p>service password-encryption</p>
+<p>!</p>
+<p>hostname S1</p>
+<p>!</p>
+<p>enable secret 5 $1$mERr$9cTjUIEqNGurQiFU.ZeCi1</p>
+<p>!</p>
+<p>no ip domain-lookup</p>
+<p>!</p>
+<p>spanning-tree mode pvst</p>
+<p>spanning-tree extend system-id</p>
+<p>!</p>
+<p>interface FastEthernet0/1</p>
+<p> switchport access vlan 999</p>
+<p> switchport mode access</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/2</p>
+<p> switchport access vlan 999</p>
+<p> switchport mode access</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/3</p>
+<p> switchport access vlan 999</p>
+<p> switchport mode access</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/4</p>
+<p> switchport access vlan 999</p>
+<p> switchport mode access</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/5</p>
+<p> switchport trunk native vlan 1000</p>
+<p> switchport trunk allowed vlan 100,200,1000</p>
+<p> switchport mode trunk</p>
+<p>!</p>
+<p>interface FastEthernet0/6</p>
+<p> switchport access vlan 100</p>
+<p> switchport mode access</p>
+<p>!</p>
+<p>interface FastEthernet0/7</p>
+<p> switchport access vlan 999</p>
+<p> switchport mode access</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/8</p>
+<p> switchport access vlan 999</p>
+<p> switchport mode access</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/9</p>
+<p> switchport access vlan 999</p>
+<p> switchport mode access</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/10</p>
+<p> switchport access vlan 999</p>
+<p> switchport mode access</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/11</p>
+<p> switchport access vlan 999</p>
+<p> switchport mode access</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/12</p>
+<p> switchport access vlan 999</p>
+<p> switchport mode access</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/13</p>
+<p> switchport access vlan 999</p>
+<p> switchport mode access</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/14</p>
+<p> switchport access vlan 999</p>
+<p> switchport mode access</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/15</p>
+<p> switchport access vlan 999</p>
+<p> switchport mode access</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/16</p>
+<p> switchport access vlan 999</p>
+<p> switchport mode access</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/17</p>
+<p> switchport access vlan 999</p>
+<p> switchport mode access</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/18</p>
+<p> switchport access vlan 999</p>
+<p> switchport mode access</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/19</p>
+<p> switchport access vlan 999</p>
+<p> switchport mode access</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/20</p>
+<p> switchport access vlan 999</p>
+<p> switchport mode access</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/21</p>
+<p> switchport access vlan 999</p>
+<p> switchport mode access</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/22</p>
+<p> switchport access vlan 999</p>
+<p> switchport mode access</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/23</p>
+<p> switchport access vlan 999</p>
+<p> switchport mode access</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/24</p>
+<p> switchport access vlan 999</p>
+<p> switchport mode access</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface GigabitEthernet0/1</p>
+<p> switchport access vlan 999</p>
+<p> switchport mode access</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface GigabitEthernet0/2</p>
+<p> switchport access vlan 999</p>
+<p> switchport mode access</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface Vlan1</p>
+<p> no ip address</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface Vlan200</p>
+<p> ip address 192.168.1.66 255.255.255.224</p>
+<p>!</p>
+<p>ip default-gateway 192.168.1.65</p>
+<p>!</p>
+<p>banner motd ^C Unauthorized access is strictly prohibited. ^C</p>
+<p>!</p>
+<p>line con 0</p>
+<p> password 7 0822455D0A16</p>
+<p>!</p>
+<p>line vty 0 4</p>
+<p> password 7 0822455D0A16</p>
+<p> login</p>
+<p>line vty 5 15</p>
+<p> password 7 0822455D0A16</p>
+<p> login</p>
+<p>!</p>
+<p>end</p>
+
+
+S2#sh run
+<p>Building configuration...</p>
+<p></p>
+<p>Current configuration : 1615 bytes</p>
+<p>!</p>
+<p>version 15.0</p>
+<p>no service timestamps log datetime msec</p>
+<p>no service timestamps debug datetime msec</p>
+<p>service password-encryption</p>
+<p>!</p>
+<p>hostname S2</p>
+<p>!</p>
+<p>enable secret 5 $1$mERr$9cTjUIEqNGurQiFU.ZeCi1</p>
+<p>!</p>
+<p>no ip domain-lookup</p>
+<p>!</p>
+<p>spanning-tree mode pvst</p>
+<p>spanning-tree extend system-id</p>
+<p>!</p>
+<p>interface FastEthernet0/1</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/2</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/3</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/4</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/5</p>
+<p> switchport mode access</p>
+<p>!</p>
+<p>interface FastEthernet0/6</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/7</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/8</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/9</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/10</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/11</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/12</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/13</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/14</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/15</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/16</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/17</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/18</p>
+<p> switchport mode access</p>
+<p>!</p>
+<p>interface FastEthernet0/19</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/20</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/21</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/22</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/23</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface FastEthernet0/24</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface GigabitEthernet0/1</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface GigabitEthernet0/2</p>
+<p> shutdown</p>
+<p>!</p>
+<p>interface Vlan1</p>
+<p> ip address 192.168.1.98 255.255.255.240</p>
+<p>!</p>
+<p>ip default-gateway 192.168.1.97</p>
+<p>!</p>
+<p>banner motd ^C Unauthorized access is strictly prohibited. ^C</p>
+<p>!</p>
+<p>line con 0</p>
+<p> password 7 0822455D0A16</p>
+<p>!</p>
+<p>line vty 0 4</p>
+<p> password 7 0822455D0A16</p>
+<p> login</p>
+<p>line vty 5 15</p>
+<p> password 7 0822455D0A16</p>
+<p> login</p>
+<p>!</p>
+<p>end</p>
