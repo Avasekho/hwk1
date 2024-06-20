@@ -193,3 +193,138 @@ d.	Сохраните текущую конфигурацию в файл загрузочной конфигурации.
 
 
 <h2> Часть 2. Проверка назначения адреса SLAAC от R1 </h2>
+
+Включим PC-A и убедимся, что сетевой адаптер настроен для автоматической настройки IPv6:
+
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab08-dhcp6/ipconfig_1.png>
+
+<blockquote>
+Откуда взялась часть адреса с идентификатором хоста?
+</blockquote>
+Генерируется на основе MAC-адреса интерфейса
+
+
+<h2> Часть 3. Настройка и проверка сервера DHCPv6 на R1 </h2>
+
+<blockquote>
+В части 3 выполняется настройка и проверка состояния DHCP-сервера на R1. Цель состоит в том, чтобы предоставить PC-A информацию о DNS-сервере и домене.
+</blockquote>
+
+Проверим еще раз кофигурацию PC-A
+
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab08-dhcp6/ipconfig_2.png>
+
+
+Настроим R1 для предоставления DHCPv6 без состояния для PC-A:
+
+
+<blockquote>
+<p>a.	Создайте пул DHCP IPv6 на R1 с именем R1-STATELESS. В составе этого пула назначьте адрес DNS-сервера как 2001:db8:acad: :1, а имя домена — как stateless.com.</p>
+<p>Откройте окно конфигурации</p>
+<p>R1(config)# ipv6 dhcp pool R1-STATELESS</p>
+<p>R1(config-dhcp)# dns-server 2001:db8:acad::254</p>
+<p>R1(config-dhcp)# domain-name STATELESS.com</p>
+</blockquote>
+<p> > ipv6 dhcp pool R1-STATELESS </p>
+<p> > dns-server 2001:db8:acad::254 </p>
+<p> > domain-name STATELESS.com </p>
+
+<blockquote>
+<p>b.	Настройте интерфейс G0/0/1 на R1, чтобы предоставить флаг конфигурации OTHER для локальной сети R1 и укажите только что созданный пул DHCP в качестве ресурса DHCP для этого интерфейса.</p>
+<p>R1(config)# interface g0/0/1</p>
+<p>R1(config-if)# ipv6 nd other-config-flag </p>
+<p>R1(config-if)# ipv6 dhcp server R1-STATELESS</p>
+</blockquote>
+<p> > interface g0/0/1 </p>
+<p> > ipv6 nd other-config-flag </p>
+<p> > ipv6 dhcp server R1-STATELESS </p>
+
+<blockquote>
+c.	Сохраните текущую конфигурацию в файл загрузочной конфигурации.
+</blockquote>
+<p> > copy running-config startup-config </p>
+
+<blockquote>
+d.	Перезапустите PC-A.
+</blockquote>
+// done
+
+<blockquote>
+e.	Проверьте вывод ipconfig /all и обратите внимание на изменения.
+</blockquote>
+
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab08-dhcp6/ipconfig_3.png>
+
+// В настройках появился DNS-суффикс и адрес сервера
+
+
+<blockquote>
+f.	Тестирование подключения с помощью пинга IP-адреса интерфейса G0/1 R2.
+</blockquote>
+
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab08-dhcp6/ping_2.png>
+
+// адрес доступен
+
+
+<h2> Часть 4. Настройка сервера DHCPv6 с сохранением состояния на R1 </h2>
+
+<blockquote>
+В части 4 настраивается R1 для ответа на запросы DHCPv6 от локальной сети на R2.
+</blockquote>
+
+<blockquote>
+<p>a.	Создайте пул DHCPv6 на R1 для сети 2001:db8:acad:3:aaa::/80. Это предоставит адреса локальной сети, подключенной к интерфейсу G0/0/1 на R2. В составе пула задайте DNS-сервер 2001:db8:acad: :254 и задайте доменное имя STATEFUL.com.</p>
+<p>Откройте окно конфигурации</p>
+<p>R1(config)# ipv6 dhcp pool R2-STATEFUL</p>
+<p>R1(config-dhcp)# address prefix 2001:db8:acad:3:aaa::/80</p>
+<p>R1(config-dhcp)# dns-server 2001:db8:acad::254</p>
+<p>R1(config-dhcp)# domain-name STATEFUL.com</p>
+</blockquote>
+<p> > ipv6 dhcp pool R2-STATEFUL </p>
+<p> > address prefix 2001:db8:acad:3:aaa::/80 </p>
+<p> > dns-server 2001:db8:acad::254 </p>
+<p> > domain-name STATEFUL.com </p>
+
+<blockquote>
+<p>b.	Назначьте только что созданный пул DHCPv6 интерфейсу g0/0/0 на R1.</p>
+<p>R1(config)# interface g0/0/0</p>
+<p>R1(config-if)# ipv6 dhcp server R2-STATEFUL</p>
+</blockquote>
+<p> > interface g0/0/0 </p>
+<p> > ipv6 dhcp server R2-STATEFUL </p>
+
+
+<h2> Часть 5. Настройка и проверка ретрансляции DHCPv6 на R2. </h2>
+
+Включим PC-B и проверим адрес SLAAC, который он генерирует:
+
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab08-dhcp6/ipconfig_4.png>
+
+
+Настроим R2 в качестве агента DHCP-ретрансляции для локальной сети на G0/0/1
+
+<blockquote>
+a.	Настройте команду ipv6 dhcp relay на интерфейсе R2 G0/0/1, указав адрес назначения интерфейса G0/0/0 на R1. Также настройте команду managed-config-flag .
+Откройте окно конфигурации
+R2 (конфигурация) # интерфейс g0/0/1
+R2(config-if)# ipv6 nd managed-config-flag
+R2(config-if)# ipv6 dhcp relay destination 2001:db8:acad:2::1 g0/0/0
+</blockquote>
+<p> > interface g0/0/1 </p>
+<p> > ipv6 nd managed-config-flag </p>
+<p> > ipv6 dhcp relay destination 2001:db8:acad:2::1 g0/0/0</p>
+
+// По всей видимости relay agent для IPv6 d Packet Tracer на данный момент не поддерживается
+
+<blockquote>
+b.	Сохраните конфигурацию.
+</blockquote>
+<p> > copy running-config startup-config </p>
+
+Попытка получить адрес IPv6 из DHCPv6 на PC-B
+
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab08-dhcp6/ipconfig_5.png>
+
+<p>// Из-за ограничений Packet Tracer мы не получаем в настройках ни DNS-суффикса STATEFUL.com, ни адреса сервера.</p>
+<p>// G0/0/1 на R1 также недоступен</p>
