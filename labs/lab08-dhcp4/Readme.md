@@ -1,4 +1,4 @@
-<h1> Лабораторная работа - Внедрение маршрутизации между виртуальными локальными сетями </h1> 
+<h1> Лабораторная работа - Реализация DHCPv4 </h1> 
 
 <h2> Топология </h2>
 <img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab08-dhcp4/topology.png>
