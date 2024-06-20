@@ -328,3 +328,155 @@ b.	Сохраните конфигурацию.
 
 <p>// Из-за ограничений Packet Tracer мы не получаем в настройках ни DNS-суффикса STATEFUL.com, ни адреса сервера.</p>
 <p>// G0/0/1 на R1 также недоступен</p>
+
+
+Конфигурация маршрутизатора:
+
+R1#sh run
+<blockquote>
+<p>Building configuration...</p>
+<p></p>
+<p>Current configuration : 1295 bytes</p>
+<p>!</p>
+<p>version 15.4</p>
+<p>no service timestamps log datetime msec</p>
+<p>no service timestamps debug datetime msec</p>
+<p>service password-encryption</p>
+<p>!</p>
+<p>hostname R1</p>
+<p>!</p>
+<p>enable secret 5 $1$mERr$9cTjUIEqNGurQiFU.ZeCi1</p>
+<p>!</p>
+<p>ip cef</p>
+<p>ipv6 unicast-routing</p>
+<p>!</p>
+<p>no ipv6 cef</p>
+<p>!</p>
+<p>ipv6 dhcp pool R1-STATELESS</p>
+<p> dns-server 2001:DB8:ACAD::254</p>
+<p> domain-name STATELESS.com</p>
+<p>!</p>
+<p>ipv6 dhcp pool R2-STATEFUL</p>
+<p> address prefix 2001:db8:acad:3:aaa::/80 lifetime 172800 86400</p>
+<p> dns-server 2001:DB8:ACAD::254</p>
+<p> domain-name STATEFUL.com</p>
+<p>!</p>
+<p>no ip domain-lookup</p>
+<p>!</p>
+<p>spanning-tree mode pvst</p>
+<p>!</p>
+<p>interface GigabitEthernet0/0/0</p>
+<p> no ip address</p>
+<p> duplex auto</p>
+<p> speed auto</p>
+<p> ipv6 address FE80::1 link-local</p>
+<p> ipv6 address 2001:DB8:ACAD:2::1/64</p>
+<p> ipv6 dhcp server R2-STATEFUL</p>
+<p>!</p>
+<p>interface GigabitEthernet0/0/1</p>
+<p> no ip address</p>
+<p> duplex auto</p>
+<p> speed auto</p>
+<p> ipv6 address FE80::1 link-local</p>
+<p> ipv6 address 2001:DB8:ACAD:1::1/64</p>
+<p> ipv6 nd other-config-flag</p>
+<p> ipv6 dhcp server R1-STATELESS</p>
+<p>!</p>
+<p>interface Vlan1</p>
+<p> no ip address</p>
+<p> shutdown</p>
+<p>!</p>
+<p>ip classless</p>
+<p>!</p>
+<p>ip flow-export version 9</p>
+<p>!</p>
+<p>ipv6 route ::/0 2001:DB8:ACAD:2::2</p>
+<p>!</p>
+<p>no cdp run</p>
+<p>!</p>
+<p>banner motd ^C Unauthorized access is strictly prohibited. ^C</p>
+<p>!</p>
+<p>line con 0</p>
+<p> password 7 0822455D0A16</p>
+<p>!</p>
+<p>line aux 0</p>
+<p>!</p>
+<p>line vty 0 4</p>
+<p> password 7 0822455D0A16</p>
+<p> login</p>
+<p>line vty 5 15</p>
+<p> password 7 0822455D0A16</p>
+<p> login</p>
+<p>!</p>
+<p>end
+</blockquote>
+
+
+
+R2#sh run
+<blockquote>
+<p>Building configuration...</p>
+<p></p>
+<p>Current configuration : 999 bytes</p>
+<p>!</p>
+<p>version 15.4</p>
+<p>no service timestamps log datetime msec</p>
+<p>no service timestamps debug datetime msec</p>
+<p>service password-encryption</p>
+<p>!</p>
+<p>hostname R2</p>
+<p>!</p>
+<p>enable secret 5 $1$mERr$9cTjUIEqNGurQiFU.ZeCi1</p>
+<p>!</p>
+<p>ip cef</p>
+<p>ipv6 unicast-routing</p>
+<p>!</p>
+<p>no ipv6 cef</p>
+<p>!</p>
+<p>no ip domain-lookup</p>
+<p>!</p>
+<p>spanning-tree mode pvst</p>
+<p>!</p>
+<p>interface GigabitEthernet0/0/0</p>
+<p> no ip address</p>
+<p> duplex auto</p>
+<p> speed auto</p>
+<p> ipv6 address FE80::2 link-local</p>
+<p> ipv6 address 2001:DB8:ACAD:2::2/64</p>
+<p>!</p>
+<p>interface GigabitEthernet0/0/1</p>
+<p> no ip address</p>
+<p> duplex auto</p>
+<p> speed auto</p>
+<p> ipv6 address FE80::1 link-local</p>
+<p> ipv6 address 2001:DB8:ACAD:3::1/64</p>
+<p> ipv6 nd managed-config-flag</p>
+<p>!</p>
+<p>interface Vlan1</p>
+<p> no ip address</p>
+<p> shutdown</p>
+<p>!</p>
+<p>ip classless</p>
+<p>!</p>
+<p>ip flow-export version 9</p>
+<p>!</p>
+<p>ipv6 route ::/0 2001:DB8:ACAD:2::1</p>
+<p>!</p>
+<p>no cdp run</p>
+<p>!</p>
+<p>banner motd ^C Unauthorized access is strictly prohibited. ^C</p>
+<p>!</p>
+<p>line con 0</p>
+<p> password 7 0822455D0A16</p>
+<p>!</p>
+<p>line aux 0</p>
+<p>!</p>
+<p>line vty 0 4</p>
+<p> password 7 0822455D0A16</p>
+<p> login</p>
+<p>line vty 5 15</p>
+<p> password 7 0822455D0A16</p>
+<p> login</p>
+<p>!</p>
+<p>end
+</blockquote>
