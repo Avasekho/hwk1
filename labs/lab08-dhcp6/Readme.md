@@ -1,7 +1,7 @@
 <h1> Лабраторная работа - Настройка DHCPv6 </h1> 
 
 <h2> Топология </h2>
-<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab08/topology.png>
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab08-dhcp6/topology.png>
 
 <h2> Таблица адресации </h2>
 
