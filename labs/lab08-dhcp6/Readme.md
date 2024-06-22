@@ -315,7 +315,20 @@ R2(config-if)# ipv6 dhcp relay destination 2001:db8:acad:2::1 g0/0/0
 <p> > ipv6 nd managed-config-flag </p>
 <p> > ipv6 dhcp relay destination 2001:db8:acad:2::1 g0/0/0</p>
 
-// По всей видимости relay agent для IPv6 d Packet Tracer на данный момент не поддерживается
+<p>// По всей видимости relay agent для IPv6 в Packet Tracer на данный момент не поддерживается</p>
+
+
+<p>// UPD. Т.к. relay agent не поддерживается, то чтобы проверить работу STATEFUL DHCP пропишем настройки отдельно на R2 </p>
+<p>// Настраиваем DHCP сервер на R2</p>
+<p> > ipv6 dhcp pool R2-STATEFUL </p>
+<p> > dns-server 2001:db8:acad::254 </p>
+<p> > domain-name STATEFUL.com </p>
+<p></p>
+<p>// Добавляем DHCP на интерфейс g0/0/1</p>
+<p> > interface g0/0/1 </p>
+<p> > ipv6 dhcp server R2-STATEFUL </p>
+<p> > ipv6 nd managed-config-flag </p>
+
 
 <blockquote>
 b.	Сохраните конфигурацию.
@@ -330,7 +343,9 @@ b.	Сохраните конфигурацию.
 <p>// G0/0/1 на R1 также недоступен</p>
 
 
+<p>// UPD. Получаем адрес с DHCP сервера на R2 </p>
 
+<img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab08-dhcp6/ipconfig_6.png>
 
 Конфигурация маршрутизатора:
 
@@ -419,7 +434,7 @@ R2#sh run
 <blockquote>
 <p>Building configuration...</p>
 <p></p>
-<p>Current configuration : 999 bytes</p>
+<p>Current configuration : 1115 bytes</p>
 <p>!</p>
 <p>version 15.4</p>
 <p>no service timestamps log datetime msec</p>
@@ -434,6 +449,10 @@ R2#sh run
 <p>ipv6 unicast-routing</p>
 <p>!</p>
 <p>no ipv6 cef</p>
+<p>!</p>
+<p>ipv6 dhcp pool R2-STATEFUL</p>
+<p> dns-server 2001:DB8:ACAD::254</p>
+<p> domain-name STATEFUL.com</p>
 <p>!</p>
 <p>no ip domain-lookup</p>
 <p>!</p>
@@ -453,6 +472,7 @@ R2#sh run
 <p> ipv6 address FE80::1 link-local</p>
 <p> ipv6 address 2001:DB8:ACAD:3::1/64</p>
 <p> ipv6 nd managed-config-flag</p>
+<p> ipv6 dhcp server R2-STATEFUL</p>
 <p>!</p>
 <p>interface Vlan1</p>
 <p> no ip address</p>
@@ -480,5 +500,5 @@ R2#sh run
 <p> password 7 0822455D0A16</p>
 <p> login</p>
 <p>!</p>
-<p>end
+<p>end</p>
 </blockquote>
