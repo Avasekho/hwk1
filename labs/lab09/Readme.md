@@ -65,6 +65,7 @@
 <blockquote>
 c.	Убедитесь, что IP-адресация и интерфейсы находятся в состоянии up / up
 </blockquote>
+
 <img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab09/ip_interface_2.png>
 
 
@@ -157,6 +158,7 @@ c.	Отключить согласование DTP F0/1 на S1 и S2.
 <blockquote>
 d.	Проверьте с помощью команды show interfaces.
 </blockquote>
+
 <img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab09/dtp_1.png>
 
 
@@ -253,6 +255,7 @@ a.	На S1, введите команду show port-security interface f0/6  д�
 <p> > switchport port-security aging time 60 </p>
 <p> > switchport port-security aging type inactivity </p>
 // При вводе type inactivity packet tracer выдает ошибку - не знает таких аргументов
+
 <img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab09/err_1.png>
 
 <blockquote>
