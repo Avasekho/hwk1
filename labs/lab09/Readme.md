@@ -393,9 +393,11 @@ c.	Убедитесь, что защита BPDU и PortFast включены н�
 <h2> Проверка наличия сквозного ⁪подключения </h2>
 
 Ping PC-A to PC-B
+
 <img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab09/ping_1.png>
 
 Ping PC-B to PC-A
+
 <img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab09/ping_2.png>
 
 
