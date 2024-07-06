@@ -577,10 +577,12 @@ d.	Настройте первые пять линий VTY на каждом устройстве, чтобы поддерживать толь
 
 10.20.0.1 недоступен по SSH
 
+
 <img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab11/ssh_4.png>
 
 
 172.16.1.1 доступен по SSH
+
 
 <img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab11/ssh_5.png>
 
