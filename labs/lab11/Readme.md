@@ -143,38 +143,38 @@ h.	Сохраните текущую конфигурацию в файл загрузочной конфигурации.
 a.	Создайте необходимые VLAN и назовите их на каждом коммутаторе из приведенной выше таблицы.
 </blockquote>
 
-vlan 20
-name Management
-exit
-vlan 30
-name Operations
-exit
-vlan 40
-name Sales
-exit
-vlan 999
-name ParkingLot
-exit
-vlan 1000
-name Private
-exit
+<p> > vlan 20</p>
+<p> > name Management</p>
+<p> > exit</p>
+<p> > vlan 30</p>
+<p> > name Operations</p>
+<p> > exit</p>
+<p> > vlan 40</p>
+<p> > name Sales</p>
+<p> > exit</p>
+<p> > vlan 999</p>
+<p> > name ParkingLot</p>
+<p> > exit</p>
+<p> > vlan 1000</p>
+<p> > name Private</p>
+<p> > exit</p>
 
 <blockquote>
 b.	Настройте интерфейс управления и шлюз по умолчанию на каждом коммутаторе, используя информацию об IP-адресе в таблице адресации. 
 </blockquote>
 
 S1:
-interface vlan20
-no shutdown
-ip address 10.20.0.2 255.255.255.0
-ip default-gateway 10.20.0.1
+<p> > interface vlan20</p>
+<p> > no shutdown</p>
+<p> > ip address 10.20.0.2 255.255.255.0</p>
+<p> > ip default-gateway 10.20.0.1</p>
 
 
 S2:
-interface vlan20
-no shutdown
-ip address 10.20.0.3 255.255.255.0
-ip default-gateway 10.20.0.1
+<p> > interface vlan20</p>
+<p> > no shutdown</p>
+<p> > ip address 10.20.0.3 255.255.255.0</p>
+<p> > ip default-gateway 10.20.0.1</p>
 
 
 <blockquote>
@@ -183,43 +183,43 @@ c.	Назначьте все неиспользуемые порты коммутатора VLAN Parking Lot, настройте их
 
 
 S1:
-interface range f0/2-4
-switchport mode access
-switchport access vlan 999
-shutdown
-exit
-interface range f0/7-24
-switchport mode access
-switchport access vlan 999
-shutdown
-exit
-interface range g0/1-2
-switchport mode access
-switchport access vlan 999
-shutdown
-exit
+<p> > interface range f0/2-4</p>
+<p> > switchport mode access</p>
+<p> > switchport access vlan 999</p>
+<p> > shutdown</p>
+<p> > exit</p>
+<p> > interface range f0/7-24</p>
+<p> > switchport mode access</p>
+<p> > switchport access vlan 999</p>
+<p> > shutdown</p>
+<p> > exit</p>
+<p> > interface range g0/1-2</p>
+<p> > switchport mode access</p>
+<p> > switchport access vlan 999</p>
+<p> > shutdown</p>
+<p> > exit</p>
 
 S2:
-interface range f0/2-4
-switchport mode access
-switchport access vlan 999
-shutdown
-exit
-interface range f0/6-17
-switchport mode access
-switchport access vlan 999
-shutdown
-exit
-interface range f0/19-24
-switchport mode access
-switchport access vlan 999
-shutdown
-exit
-interface range g0/1-2
-switchport mode access
-switchport access vlan 999
-shutdown
-exit
+<p> > interface range f0/2-4</p>
+<p> > switchport mode access</p>
+<p> > switchport access vlan 999</p>
+<p> > shutdown</p>
+<p> > exit</p>
+<p> > interface range f0/6-17</p>
+<p> > switchport mode access</p>
+<p> > switchport access vlan 999</p>
+<p> > shutdown</p>
+<p> > exit</p>
+<p> > interface range f0/19-24</p>
+<p> > switchport mode access</p>
+<p> > switchport access vlan 999</p>
+<p> > shutdown</p>
+<p> > exit</p>
+<p> > interface range g0/1-2</p>
+<p> > switchport mode access</p>
+<p> > switchport access vlan 999</p>
+<p> > shutdown</p>
+<p> > exit</p>
 
 
 <h2> Назначим сети VLAN соответствующим интерфейсам коммутатора. </h2>
