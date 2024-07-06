@@ -229,23 +229,23 @@ a.	Назначьте используемые порты соответствующей VLAN (указанной в таблице VLAN в
 </blockquote>
 
 S1:
-interface range f0/6
-switchport mode access
-switchport access vlan 30
-no shutdown
-exit
+<p> > interface range f0/6</p>
+<p> > switchport mode access</p>
+<p> > switchport access vlan 30</p>
+<p> > no shutdown</p>
+<p> > exit</p>
 
 S2:
-interface range f0/5
-switchport mode access
-switchport access vlan 20
-no shutdown
-exit
-interface range f0/18
-switchport mode access
-switchport access vlan 40
-no shutdown
-exit
+<p> > interface range f0/5</p>
+<p> > switchport mode access</p>
+<p> > switchport access vlan 20</p>
+<p> > no shutdown</p>
+<p> > exit</p>
+<p> > interface range f0/18</p>
+<p> > switchport mode access</p>
+<p> > switchport access vlan 40</p>
+<p> > no shutdown</p>
+<p> > exit</p>
 
 
 <blockquote>
@@ -268,30 +268,30 @@ a.	Измените режим порта коммутатора на интерфейсе F0/1, чтобы принудительно созд
 </blockquote>
 
 S1:
-interface f0/1
-switchport mode trunk
-no shutdown
-exit
+<p> > interface f0/1</p>
+<p> > switchport mode trunk</p>
+<p> > no shutdown</p>
+<p> > exit</p>
 
 S2:
-interface f0/1
-switchport mode trunk
-no shutdown
-exit
+<p> > interface f0/1</p>
+<p> > switchport mode trunk</p>
+<p> > no shutdown</p>
+<p> > exit</p>
 
 <blockquote>
 b.	В рамках конфигурации транка установите для native vlan значение 1000 на обоих коммутаторах. При настройке двух интерфейсов для разных собственных VLAN сообщения об ошибках могут отображаться временно.
 </blockquote>
 
 S1:
-interface f0/1
-switchport trunk native vlan 1000
-exit
+<p> > interface f0/1</p>
+<p> > switchport trunk native vlan 1000</p>
+<p> > exit</p>
 
 S2:
-interface f0/1
-switchport trunk native vlan 1000
-exit
+<p> > interface f0/1</p>
+<p> > switchport trunk native vlan 1000</p>
+<p> > exit</p>
 
 <blockquote>
 c.	В качестве другой части конфигурации транка укажите, что VLAN 10, 20, 30 и 1000 разрешены в транке.
@@ -300,14 +300,14 @@ c.	В качестве другой части конфигурации транка укажите, что VLAN 10, 20, 30 и 10
 // VLAN 10 в данной конфигурации нет, добавлен 40
 
 S1:
-interface f0/1
-switchport trunk allowed vlan 20,30,40,1000
-exit
+<p> > interface f0/1</p>
+<p> > switchport trunk allowed vlan 20,30,40,1000</p>
+<p> > exit</p>
 
 S2:
-interface f0/1
-switchport trunk allowed vlan 20,30,40,1000
-exit
+<p> > interface f0/1</p>
+<p> > switchport trunk allowed vlan 20,30,40,1000</p>
+<p> > exit</p>
 
 <blockquote>
 d.	Выполните команду show interfaces trunk для проверки портов магистрали, собственной VLAN и разрешенных VLAN через магистраль.
@@ -326,12 +326,12 @@ a.	Настройте интерфейс S1 F0/5 с теми же параметрами транка, что и F0/1. Это тра
 </blockquote>
 
 S1:
-interface f0/5
-switchport mode trunk
-switchport trunk native vlan 1000
-switchport trunk allowed vlan 20,30,40,1000
-no shutdown
-exit
+<p> > interface f0/5</p>
+<p> > switchport mode trunk</p>
+<p> > switchport trunk native vlan 1000</p>
+<p> > switchport trunk allowed vlan 20,30,40,1000</p>
+<p> > no shutdown</p>
+<p> > exit</p>
 
 <blockquote>
 b.	Сохраните текущую конфигурацию в файл загрузочной конфигурации.
@@ -356,32 +356,32 @@ c.	Используйте команду show interfaces trunk для проверки настроек транка.
 a.	Активируйте интерфейс G0/0/1 на маршрутизаторе.
 </blockquote>
 
-interface g0/0/1
-no shutdown
+<p> > interface g0/0/1</p>
+<p> > no shutdown</p>
 
 <blockquote>
 b.	Настройте подинтерфейсы для каждой VLAN, как указано в таблице IP-адресации. Все подинтерфейсы используют инкапсуляцию 802.1Q. Убедитесь, что подинтерфейс для собственной VLAN не имеет назначенного IP-адреса. Включите описание для каждого подинтерфейса.
 </blockquote>
 
-interface G0/0/1.20
-ip address 10.20.0.1 255.255.255.0
-description Management
-encapsulation dot1q 20
-exit
-interface G0/0/1.30
-ip address 10.30.0.1 255.255.255.0
-description Operations
-encapsulation dot1q 30
-exit
-interface G0/0/1.40
-ip address 10.40.0.1 255.255.255.0
-description Sales
-encapsulation dot1q 40
-exit
-interface G0/0/1.1000
-description Private
-encapsulation dot1q 1000 native
-exit
+<p> > interface G0/0/1.20</p>
+<p> > ip address 10.20.0.1 255.255.255.0</p>
+<p> > description Management</p>
+<p> > encapsulation dot1q 20</p>
+<p> > exit</p>
+<p> > interface G0/0/1.30</p>
+<p> > ip address 10.30.0.1 255.255.255.0</p>
+<p> > description Operations</p>
+<p> > encapsulation dot1q 30</p>
+<p> > exit</p>
+<p> > interface G0/0/1.40</p>
+<p> > ip address 10.40.0.1 255.255.255.0</p>
+<p> > description Sales</p>
+<p> > encapsulation dot1q 40</p>
+<p> > exit</p>
+<p> > interface G0/0/1.1000</p>
+<p> > description Private</p>
+<p> > encapsulation dot1q 1000 native</p>
+<p> > exit</p>
 
 <blockquote>
 c.	Настройте интерфейс Loopback 1 на R1 с адресацией из приведенной выше таблицы.
@@ -401,10 +401,10 @@ d.	С помощью команды show ip interface brief проверьте конфигурацию подынтерфейс
 <h2> Настройка интерфейса R2 g0/0/1 с использованием адреса из таблицы и маршрута по умолчанию с адресом следующего перехода 10.20.0.1 </h2>
 
 
-interface g0/0/1
-no shutdown
-ip address 10.20.0.4 255.255.255.0
-ip default-gateway 10.20.0.1
+<p> > interface g0/0/1</p>
+<p> > no shutdown</p>
+<p> > ip address 10.20.0.4 255.255.255.0</p>
+<p> > ip default-gateway 10.20.0.1</p>
 
 
 <h2> Часть 5. Настройте удаленный доступ. </h2>
@@ -417,29 +417,29 @@ ip default-gateway 10.20.0.1
 a.	Создайте локального пользователя с именем пользователя SSHadmin и зашифрованным паролем $cisco123!
 </blockquote>
 
-username SSHadmin password $cisco123!
+<p> > username SSHadmin password $cisco123!</p>
 
 
 <blockquote>
 b.	Используйте ccna-lab.com в качестве доменного имени.
 </blockquote>
 
-ip domain-name ccna-lab.com
+<p> > ip domain-name ccna-lab.com</p>
 
 
 <blockquote>
 c.	Генерируйте криптоключи с помощью 1024 битного модуля.
 </blockquote>
 
-crypto key generate rsa general-keys modulus 1024
+<p> > crypto key generate rsa general-keys modulus 1024</p>
 
 <blockquote>
 d.	Настройте первые пять линий VTY на каждом устройстве, чтобы поддерживать только SSH-соединения и с локальной аутентификацией.
 </blockquote>
 
-line vty 0 5
-transport input ssh
-login local
+<p> > line vty 0 5</p>
+<p> > transport input ssh</p>
+<p> > login local</p>
 
 
 <h2> Включим защищенные веб-службы с проверкой подлинности на R1. </h2>
@@ -510,45 +510,45 @@ login local
 
 <h2> Проанализируем требования к сети и политике безопасности для планирования реализации ACL. </h2>
 
-Политика 1. Сеть Sales не может использовать SSH в сети Management (но в  другие сети SSH разрешен).
-Тут будет достаточно заблокировать исходящий SSH из Sales на вход в Management
+<p>Политика 1. Сеть Sales не может использовать SSH в сети Management (но в  другие сети SSH разрешен).</p>
+<p>Тут будет достаточно заблокировать исходящий SSH из Sales на вход в Management</p>
 
-2. Политика 2. Сеть Sales не имеет доступа к IP-адресам в сети Management с помощью любого веб-протокола (HTTP/HTTPS). Сеть Sales также не имеет доступа к интерфейсам R1 с помощью любого веб-протокола. 
-Разрешён весь другой веб-трафик (обратите внимание — Сеть Sales  может получить доступ к интерфейсу Loopback 1 на R1).
-Заблокировать исходяший траффик из Sales по 80/443 порты маршрутизатора и в Management
+<p>2. Политика 2. Сеть Sales не имеет доступа к IP-адресам в сети Management с помощью любого веб-протокола (HTTP/HTTPS). Сеть Sales также не имеет доступа к интерфейсам R1 с помощью любого веб-протокола. </p>
+<p>Разрешён весь другой веб-трафик (обратите внимание — Сеть Sales  может получить доступ к интерфейсу Loopback 1 на R1).</p>
+<p>Заблокировать исходяший траффик из Sales по 80/443 порты маршрутизатора и в Management</p>
 
-3. Политика 3. Сеть Sales не может отправлять эхо-запросы ICMP в сети Operations или Management. Разрешены эхо-запросы ICMP к другим адресатам.
-Заблокировать исходящий ICMP из Sales в Operations и Management
+<p>3. Политика 3. Сеть Sales не может отправлять эхо-запросы ICMP в сети Operations или Management. Разрешены эхо-запросы ICMP к другим адресатам.</p>
+<p>Заблокировать исходящий ICMP из Sales в Operations и Management</p>
 
-4. Политика 4: Cеть Operations  не может отправлять ICMP эхозапросы в сеть Sales. Разрешены эхо-запросы ICMP к другим адресатам
-Заблокировать исходящий ICMP из Operations в Sales
+<p>4. Политика 4: Cеть Operations  не может отправлять ICMP эхозапросы в сеть Sales. Разрешены эхо-запросы ICMP к другим адресатам</p>
+<p>Заблокировать исходящий ICMP из Operations в Sales</p>
 
 <h2> Разработка и применение расширенных списков доступа, которые будут соответствовать требованиям политики безопасности. </h2>
 
-ip access-list extended vlan40-in
-deny tcp 10.40.0.0 0.0.0.255 10.20.0.0 0.0.0.255 eq 22
-deny tcp 10.40.0.0 0.0.255.255 10.20.0.0 0.0.255.255 eq 80
-deny tcp 10.40.0.0 0.0.255.255 10.20.0.0 0.0.255.255 eq 443
-deny tcp 10.40.0.0 0.0.255.255 host 10.20.0.1 eq 80
-deny tcp 10.40.0.0 0.0.255.255 host 10.20.0.1 eq 443
-deny tcp 10.40.0.0 0.0.255.255 host 10.30.0.1 eq 80
-deny tcp 10.40.0.0 0.0.255.255 host 10.30.0.1 eq 443
-deny tcp 10.40.0.0 0.0.255.255 host 10.40.0.1 eq 80
-deny tcp 10.40.0.0 0.0.255.255 host 10.40.0.1 eq 443
-deny icmp 10.40.0.0 0.0.255.255 10.20.0.0 0.0.255.255
-deny icmp 10.40.0.0 0.0.255.255 10.30.0.0 0.0.255.255
-permit ip any any
+<p> > ip access-list extended vlan40-in</p>
+<p> > deny tcp 10.40.0.0 0.0.0.255 10.20.0.0 0.0.0.255 eq 22</p>
+<p> > deny tcp 10.40.0.0 0.0.255.255 10.20.0.0 0.0.255.255 eq 80</p>
+<p> > deny tcp 10.40.0.0 0.0.255.255 10.20.0.0 0.0.255.255 eq 443</p>
+<p> > deny tcp 10.40.0.0 0.0.255.255 host 10.20.0.1 eq 80</p>
+<p> > deny tcp 10.40.0.0 0.0.255.255 host 10.20.0.1 eq 443</p>
+<p> > deny tcp 10.40.0.0 0.0.255.255 host 10.30.0.1 eq 80</p>
+<p> > deny tcp 10.40.0.0 0.0.255.255 host 10.30.0.1 eq 443</p>
+<p> > deny tcp 10.40.0.0 0.0.255.255 host 10.40.0.1 eq 80</p>
+<p> > deny tcp 10.40.0.0 0.0.255.255 host 10.40.0.1 eq 443</p>
+<p> > deny icmp 10.40.0.0 0.0.255.255 10.20.0.0 0.0.255.255</p>
+<p> > deny icmp 10.40.0.0 0.0.255.255 10.30.0.0 0.0.255.255</p>
+<p> > permit ip any any</p>
 // т.к по умолчанию cisco ставит в конец deny any any явно разрешим в конце для Sales все что не запрещено.
 
-ip access-list extended vlan30-in
-deny icmp 10.30.0.0 0.0.255.255 10.40.0.0 0.0.255.255
+<p> > ip access-list extended vlan30-in</p>
+<p> > deny icmp 10.30.0.0 0.0.255.255 10.40.0.0 0.0.255.255</p>
 
 
-interface G0/0/1.30
-ip access-group vlan30-in IN
+<p> > interface G0/0/1.30</p>
+<p> > ip access-group vlan30-in IN</p>
 
-interface G0/0/1.40
-ip access-group vlan40-in IN
+<p> > interface G0/0/1.40</p>
+<p> > ip access-group vlan40-in IN</p>
 
 
 <h2> Убедимся, что политики безопасности применяются развернутыми списками доступа. </h2>
@@ -576,10 +576,12 @@ ip access-group vlan40-in IN
 
 
 10.20.0.1 недоступен по SSH
+
 <img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab11/ssh_4.png>
 
 
 172.16.1.1 доступен по SSH
+
 <img src=https://github.com/Avasekho/otus-networks-basic/blob/main/labs/lab11/ssh_5.png>
 
 
