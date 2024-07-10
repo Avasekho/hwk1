@@ -542,7 +542,9 @@ d.	Ќастройте первые п€ть линий VTY на каждом устройстве, чтобы поддерживать толь
 
 <p> > ip access-list extended vlan30-in</p>
 <p> > deny icmp 10.30.0.0 0.0.255.255 10.40.0.0 0.0.255.255</p>
+<p> > permit ip any any</p>
 
+// UPD ƒа, тут тоже надо добавить в конец разрешение на все остальное кроме ICMP из Operations (10.30.0.0) в Sales (10.40.0.0).
 
 <p> > interface G0/0/1.30</p>
 <p> > ip access-group vlan30-in IN</p>
